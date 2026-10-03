@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b1f3a">
+<meta name="description" content="AI-powered Internal Medicine residency interview simulator for IMGs">
+<title>IMG Residency Interview Coach</title>
+<link rel="manifest" href="manifest.json">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header>
+  <div class="brand">IMG Residency Interview Coach</div>
+  <div class="sub">Internal Medicine • AI interview simulation for IMGs</div>
+</header>
+
+<main>
+<section id="setup" class="card">
+  <h1>Practice a realistic residency interview</h1>
+  <p class="muted">Choose an AI-simulated interviewer style. These are fictional simulations, not real Harvard, Stanford, or Mayo physicians.</p>
+
+  <div class="grid">
+    <label>Interviewer
+      <select id="interviewer">
+        <option value="harvard-pd">Harvard-style Program Director</option>
+        <option value="harvard-chief">Harvard-style Chief Resident</option>
+        <option value="stanford-pd">Stanford-style Program Director</option>
+        <option value="stanford-chief">Stanford-style Chief Resident</option>
+        <option value="mayo-pd" selected>Mayo Clinic-style Program Director</option>
+        <option value="mayo-chief">Mayo Clinic-style Chief Resident</option>
+      </select>
+    </label>
+    <label>Interview mode
+      <select id="mode">
+        <option value="standard">Standard</option>
+        <option value="challenging">Challenging</option>
+        <option value="stress">Stress interview</option>
+      </select>
+    </label>
+    <label>Interview length
+      <select id="length">
+        <option value="8">8 questions</option>
+        <option value="12" selected>12 questions</option>
+        <option value="16">16 questions</option>
+      </select>
+    </label>
+  </div>
+
+  <h2>Your interview profile</h2>
+  <div class="grid">
+    <label>Name (optional)<input id="name" placeholder="Your name"></label>
+    <label>Medical school<input id="school" placeholder="e.g., BPKIHS"></label>
+    <label>Graduation year<input id="yog" placeholder="e.g., 2024" inputmode="numeric"></label>
+    <label>USMLE / exam highlights<input id="exam" placeholder="e.g., Step 1 Pass, Step 2 CK 242"></label>
+    <label>US clinical experience<input id="usce" placeholder="e.g., Tele-observership; no hands-on USCE"></label>
+    <label>Career goal<input id="goal" placeholder="e.g., General Internal Medicine / fellowship"></label>
+  </div>
+
+  <button id="start" class="primary big">Start AI Interview</button>
+</section>
+
+<section id="interview" class="hidden">
+  <div class="topbar card">
+    <div><strong id="who">Mayo Clinic-style Program Director</strong><span class="pill" id="modePill">Standard</span></div>
+    <div>Question <strong id="counter">1 / 12</strong></div>
+  </div>
+
+  <div class="card question-card">
+    <div class="eyebrow">AI interviewer</div>
+    <h1 id="question">Tell me about yourself.</h1>
+    <button id="listen" class="secondary">🔊 Hear question</button>
+  </div>
+
+  <div class="card answer-card">
+    <div class="record-row">
+      <button id="record" class="record">🎙️<span>Start recording</span></button>
+      <div>
+        <div id="recordStatus" class="status">Tap the microphone and answer as if you are in the interview.</div>
+        <div id="timer">00:00</div>
+      </div>
+    </div>
+    <audio id="answerAudio" controls class="audio hidden"></audio>
+    <div class="or">OR type your answer</div>
+    <textarea id="typed" placeholder="Your answer will be evaluated by the AI interviewer…"></textarea>
+    <div class="actions">
+      <button id="send" class="primary" disabled>Send Answer</button>
+      <button id="end" class="danger">End Interview</button>
+    </div>
+  </div>
+
+  <div id="liveFeedback" class="card hidden"></div>
+</section>
+
+<section id="report" class="card hidden">
+  <h1>Interview Report</h1>
+  <p class="muted" id="reportSummary"></p>
+  <div id="scoreGrid" class="score-grid"></div>
+  <div class="report-grid">
+    <div><h2>Strengths</h2><ul id="strengths"></ul></div>
+    <div><h2>Priority improvements</h2><ul id="improvements"></ul></div>
+  </div>
+  <h2>Question-by-question review</h2>
+  <div id="history"></div>
+  <button id="restart" class="primary">Practice Again</button>
+</section>
+
+<div id="toast" class="toast hidden"></div>
+</main>
+<script src="app.js"></script>
+</body>
+</html>
